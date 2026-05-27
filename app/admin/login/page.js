@@ -5,8 +5,6 @@ import {
   useState
 } from "react";
 
-import Link from "next/link";
-
 import {
   ref,
   get,
@@ -14,6 +12,8 @@ import {
 } from "firebase/database";
 
 import { db } from "@/lib/firebase";
+
+import toast from "react-hot-toast";
 
 export default function AdminLoginPage() {
 
@@ -73,36 +73,6 @@ export default function AdminLoginPage() {
           data.password || "admin123"
         );
 
-      } else {
-
-        await set(
-
-          ref(
-            db,
-            "adminSettings"
-          ),
-
-          {
-            username:
-              "admin",
-
-            password:
-              "admin123",
-
-            recoveryKey:
-              "BHARATP2P2026MASTER"
-          }
-
-        );
-
-        setSavedUsername(
-          "admin"
-        );
-
-        setSavedPassword(
-          "admin123"
-        );
-
       }
 
     } catch (err) {
@@ -125,16 +95,20 @@ export default function AdminLoginPage() {
         "true"
       );
 
-      alert(
+      toast.success(
         "Login Successful"
       );
 
-      window.location.href =
-        "/admin";
+      setTimeout(() => {
+
+        window.location.href =
+          "/admin";
+
+      }, 1200);
 
     } else {
 
-      alert(
+      toast.error(
         "Invalid Login Details"
       );
 
@@ -157,7 +131,7 @@ export default function AdminLoginPage() {
 
       if (!snapshot.exists()) {
 
-        alert(
+        toast.error(
           "Admin data missing"
         );
 
@@ -173,7 +147,7 @@ export default function AdminLoginPage() {
         data.recoveryKey
       ) {
 
-        alert(
+        toast.error(
           "Invalid Recovery Key"
         );
 
@@ -201,17 +175,23 @@ export default function AdminLoginPage() {
 
       );
 
-      alert(
+      await loadAdmin();
+
+      toast.success(
         "Admin Updated Successfully"
       );
 
-      setShowRecovery(false);
+      setTimeout(() => {
+
+        setShowRecovery(false);
+
+      }, 1200);
 
     } catch (err) {
 
       console.log(err);
 
-      alert(
+      toast.error(
         "Something went wrong"
       );
 
