@@ -91,6 +91,7 @@ export default function LoginPage() {
         await signInWithEmailAndPassword(
           auth,
           email,
+          password
         );
 
         toast.success("Login Successful");
