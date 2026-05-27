@@ -26,6 +26,13 @@ export default function LoginPage() {
     useRouter();
 
   const [email, setEmail] =
+        );
+
+        toast.success("Login Successful");
+
+        router.push(
+          "/dashboard"
+        );
     useState("");
 
   const [password, setPassword] =
@@ -59,6 +66,13 @@ export default function LoginPage() {
 
       if (
         !email ||
+        );
+
+        toast.success("Login Successful");
+
+        router.push(
+          "/dashboard"
+        );
         !password
       ) {
 
@@ -77,14 +91,27 @@ export default function LoginPage() {
         await signInWithEmailAndPassword(
           auth,
           email,
+        );
+
+        toast.success("Login Successful");
+
+        router.push(
+          "/dashboard"
+        );
           password
         );
 
         localStorage.setItem(
 
-        toast.success("Login Successful");
           "bharatp2pUser",
           email
+        );
+
+        toast.success("Login Successful");
+
+        router.push(
+          "/dashboard"
+        );
         );
 
         router.push(
@@ -337,8 +364,22 @@ export default function LoginPage() {
 
           <input
             type="email"
+        );
+
+        toast.success("Login Successful");
+
+        router.push(
+          "/dashboard"
+        );
             placeholder="Enter Email"
             value={email}
+        );
+
+        toast.success("Login Successful");
+
+        router.push(
+          "/dashboard"
+        );
             onChange={(e)=>
               setEmail(
                 e.target.value
