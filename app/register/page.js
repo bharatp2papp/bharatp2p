@@ -25,6 +25,8 @@ import {
   db
 } from "@/lib/firebase";
 
+import toast from "react-hot-toast";
+
 export default function RegisterPage() {
 
   const router =
@@ -70,7 +72,7 @@ export default function RegisterPage() {
         !password
       ) {
 
-        setMessage(
+        toast.error(
           "Fill all details"
         );
 
@@ -123,15 +125,23 @@ export default function RegisterPage() {
           email
         );
 
-        router.push(
-          "/login"
+        toast.success(
+          "Registration Successful"
         );
+
+        setTimeout(() => {
+
+          router.push(
+            "/login"
+          );
+
+        }, 1200);
 
       } catch (error) {
 
         console.log(error);
 
-        setMessage(
+        toast.error(
           error.message
         );
 
@@ -144,8 +154,7 @@ export default function RegisterPage() {
     };
 
   if (
-    !pageReady ||
-    loading
+    !pageReady
   ) {
 
     return (
@@ -224,8 +233,6 @@ export default function RegisterPage() {
 
         </Link>
 
-        {/* LOGO */}
-
         <div className="flex flex-col items-center text-center">
 
           <div className="w-16 h-16 rounded-[22px] bg-gradient-to-br from-[#0f172a] to-[#020617] border border-green-400/20 flex items-center justify-center shadow-[0_0_30px_rgba(34,197,94,0.20)]">
@@ -261,8 +268,6 @@ export default function RegisterPage() {
           </p>
 
         </div>
-
-        {/* TICKER */}
 
         <div className="mt-5 overflow-hidden rounded-[18px] border border-white/10 bg-[#0d1324] py-3">
 
@@ -347,8 +352,6 @@ export default function RegisterPage() {
 
         `}</style>
 
-        {/* MESSAGE */}
-
         {message && (
 
           <div className="mt-5 bg-red-500/10 border border-red-500/20 text-red-400 rounded-[20px] p-3 text-center font-bold text-sm">
@@ -358,8 +361,6 @@ export default function RegisterPage() {
           </div>
 
         )}
-
-        {/* INPUTS */}
 
         <div className="mt-5 space-y-4">
 
