@@ -18,6 +18,7 @@ import {
 import {
   auth
 } from "@/lib/firebase";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
 
@@ -61,7 +62,7 @@ export default function LoginPage() {
         !password
       ) {
 
-        setMessage(
+        toast.error(
           "Fill all details"
         );
 
@@ -80,6 +81,8 @@ export default function LoginPage() {
         );
 
         localStorage.setItem(
+
+        toast.success("Login Successful");
           "bharatp2pUser",
           email
         );
@@ -92,7 +95,7 @@ export default function LoginPage() {
 
         console.log(error);
 
-        setMessage(
+        toast.error(
           "Invalid Email Or Password"
         );
 
