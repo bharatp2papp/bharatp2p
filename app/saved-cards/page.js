@@ -4,29 +4,17 @@ import { useEffect, useState } from "react";
 
 import Link from "next/link";
 
-import { initializeApp } from "firebase/app";
+import { db } from "@/lib/firebase";
 
 import {
-  getDatabase,
   ref,
   onValue,
   remove,
   update
 } from "firebase/database";
 
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "bharatp2p-cfee3.firebaseapp.com",
-  databaseURL: "https://bharatp2p-cfee3-default-rtdb.firebaseio.com",
-  projectId: "bharatp2p-cfee3",
-  storageBucket: "bharatp2p-cfee3.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
 
-const app = initializeApp(firebaseConfig);
 
-const db = getDatabase(app);
 
 export default function SavedCards() {
 
