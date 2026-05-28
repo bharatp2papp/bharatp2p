@@ -15,6 +15,8 @@ import {
 
 import { db } from "@/lib/firebase";
 
+import toast from "react-hot-toast";
+
 export default function WalletControlPage() {
 
   const [email, setEmail] =
@@ -50,7 +52,7 @@ export default function WalletControlPage() {
 
       if (!snapshot.exists()) {
 
-        alert(
+        toast.error(
           "No users found"
         );
 
@@ -85,8 +87,14 @@ export default function WalletControlPage() {
 
       if (!found) {
 
-        alert(
+        toast.error(
           "User not found"
+        );
+
+      } else {
+
+        toast.success(
+          "User Found"
         );
 
       }
@@ -130,7 +138,7 @@ export default function WalletControlPage() {
 
       ref(
         db,
-        "notifications"
+        `notifications/${email.replace(/\./g, "_")}`
       ),
 
       {
@@ -153,7 +161,7 @@ export default function WalletControlPage() {
       !amount
     ) {
 
-      alert(
+      toast.error(
         "Check user first"
       );
 
@@ -192,13 +200,17 @@ export default function WalletControlPage() {
         newBalance
       );
 
-      alert(
+      toast.success(
         "Balance Added"
       );
 
     } catch (err) {
 
       console.log(err);
+
+      toast.error(
+        "Something went wrong"
+      );
 
     } finally {
 
@@ -216,7 +228,7 @@ export default function WalletControlPage() {
       !amount
     ) {
 
-      alert(
+      toast.error(
         "Check user first"
       );
 
@@ -255,13 +267,17 @@ export default function WalletControlPage() {
         newBalance
       );
 
-      alert(
+      toast.success(
         "Balance Deducted"
       );
 
     } catch (err) {
 
       console.log(err);
+
+      toast.error(
+        "Something went wrong"
+      );
 
     } finally {
 
@@ -279,7 +295,7 @@ export default function WalletControlPage() {
       !amount
     ) {
 
-      alert(
+      toast.error(
         "Check user first"
       );
 
@@ -314,13 +330,17 @@ export default function WalletControlPage() {
         Number(amount)
       );
 
-      alert(
+      toast.success(
         "Balance Updated"
       );
 
     } catch (err) {
 
       console.log(err);
+
+      toast.error(
+        "Something went wrong"
+      );
 
     } finally {
 
