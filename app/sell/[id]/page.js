@@ -20,6 +20,7 @@ import {
 } from "firebase/database";
 
 import { db } from "@/lib/firebase";
+import toast from "react-hot-toast";
 
 export default function SellOrderPage() {
 
@@ -104,6 +105,26 @@ export default function SellOrderPage() {
           "bharatp2pUser"
         );
 
+
+      const usersSnapshot = await get(ref(db, "users"));
+
+      let currentBalance = 0;
+
+      if (usersSnapshot.exists()) {
+        const users = usersSnapshot.val();
+
+        Object.keys(users).forEach((key) => {
+          if (users[key].email === user) {
+            currentBalance = Number(users[key].balance || 0);
+          }
+        });
+      }
+
+      if (currentBalance < Number(amount)) {
+        toast.error("Insufficient Balance");
+        return;
+      }
+
       let paymentData = {};
 
       /* BANK FETCH */
@@ -171,7 +192,7 @@ export default function SellOrderPage() {
         push(
           ref(
             db,
-            "orders"
+            "sellOrders"
           )
         );
 

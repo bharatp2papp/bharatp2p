@@ -113,7 +113,7 @@ export default function BuyOrderPage() {
         push(
           ref(
             db,
-            "orders"
+            "buyOrders"
           )
         );
 

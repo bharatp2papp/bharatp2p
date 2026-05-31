@@ -17,6 +17,7 @@ import {
 
 import {
   ref,
+  get,
   set
 } from "firebase/database";
 
@@ -94,6 +95,24 @@ export default function RegisterPage() {
         const user =
           userCredential.user;
 
+        const referralCode =
+          email
+            .split("@")[0]
+            .replace(/[^a-zA-Z0-9]/g, "")
+            .toUpperCase();
+
+        let referredBy = "";
+
+        if (referral.trim()) {
+
+          referredBy =
+            referral
+              .trim()
+              .toUpperCase();
+
+        }
+
+
         await set(
 
           ref(
@@ -107,7 +126,17 @@ export default function RegisterPage() {
 
             email,
 
-            referral,
+            referralCode,
+
+            referredBy,
+
+            referralCount: 0,
+
+            referralEarnings: 0,
+
+            totalReferralDeposit: 0,
+
+            totalReferralTrades: 0,
 
             recoveryKey:
               "BHARATP2P2026MASTER",

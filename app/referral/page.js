@@ -6,6 +6,14 @@ import {
 } from "react";
 
 import Link from "next/link";
+import {
+  ref,
+  onValue
+} from "firebase/database";
+
+import {
+  db
+} from "@/lib/firebase";
 
 export default function ReferralPage() {
 
@@ -14,6 +22,12 @@ export default function ReferralPage() {
 
   const [loading, setLoading] =
     useState(true);
+
+  const [userData, setUserData] =
+    useState(null);
+
+  const [referrals, setReferrals] =
+    useState([]);
 
   useEffect(() => {
 
@@ -24,17 +38,69 @@ export default function ReferralPage() {
 
       }, 900);
 
-    return () =>
-      clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+
+    const email =
+      localStorage.getItem(
+        "bharatp2pUser"
+      );
+
+    if (!email)
+      return;
+
+    onValue(
+      ref(db, "users"),
+      (snapshot) => {
+
+        if (!snapshot.exists())
+          return;
+
+        const users =
+          snapshot.val();
+
+        let currentUser = null;
+
+        const referralUsers = [];
+
+        for (const key in users) {
+
+          if (users[key].email === email) {
+            currentUser = users[key];
+          }
+
+        }
+
+        if (currentUser) {
+
+          for (const key in users) {
+
+            if (users[key]?.referredBy === currentUser?.referralCode) {
+              referralUsers.push(users[key]);
+            }
+
+          }
+
+        }
+
+        console.log("CURRENT USER =", currentUser);
+        setUserData(currentUser);
+        setReferrals(referralUsers);
+
+      }
+    );
 
   }, []);
 
+  console.log(userData);
+
   const referCode =
-    "BHARATP2P2026";
+    userData?.referralCode ||
+    userData?.email?.split("@")[0]?.toUpperCase() ||
+    "NO-CODE";
 
   const referLink =
-    "https://bharatp2p.com/ref/" +
-    referCode;
 
   const shareReferral =
     async () => {
@@ -281,7 +347,7 @@ export default function ReferralPage() {
 
             <h2 className="text-3xl font-black mt-2">
 
-              0
+              {referrals.length}
 
             </h2>
 
@@ -303,7 +369,7 @@ export default function ReferralPage() {
 
             <h2 className="text-3xl font-black mt-2 text-green-400">
 
-              ₹0
+              ₹{userData?.referralEarnings || 0}
 
             </h2>
 
