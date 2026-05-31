@@ -100,7 +100,7 @@ export default function ReferralPage() {
     userData?.email?.split("@")[0]?.toUpperCase() ||
     "NO-CODE";
 
-  const referLink =
+  const referLink = `https://bharatp2p.vercel.app/register?ref=${referCode}`;
 
   const shareReferral =
     async () => {
