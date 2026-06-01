@@ -59,6 +59,9 @@ export default function SellOrderPage() {
         );
 
       if (snapshot.exists()) {
+        console.log("BUYER DATA =", snapshot.val());
+        console.log("BUYER DATA =", snapshot.val());
+        console.log("BUYER DATA =", snapshot.val());
 
         setBuyer(
           snapshot.val()
@@ -115,20 +118,26 @@ export default function SellOrderPage() {
 
         Object.keys(users).forEach((key) => {
           if (users[key].email === user) {
+            console.log("MATCHED =", users[key].email);
+            console.log("BALANCE DB =", users[key].balance);
             currentBalance = Number(users[key].balance || 0);
           }
         });
       }
 
+      console.log("BALANCE =", currentBalance);
+      console.log("SELL AMOUNT =", Number(amount));
       if (currentBalance < Number(amount)) {
         toast.error("Insufficient Balance");
         return;
       }
 
+      console.log("PASS BALANCE CHECK");
       let paymentData = {};
 
       /* BANK FETCH */
 
+      console.log("FETCH BANK");
       const bankSnapshot =
         await get(
           ref(
@@ -166,6 +175,7 @@ export default function SellOrderPage() {
 
       /* UPI FETCH */
 
+      console.log("FETCH UPI");
       const upiSnapshot =
         await get(
           ref(
@@ -188,6 +198,7 @@ export default function SellOrderPage() {
 
       }
 
+      console.log("CREATE ORDER");
       const orderRef =
         push(
           ref(

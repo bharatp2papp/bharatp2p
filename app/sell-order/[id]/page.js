@@ -188,7 +188,7 @@ export default function SellOrderLivePage() {
         await get(
           ref(
             db,
-            `orders/${params.id}`
+            `sellOrders/${params.id}`
           )
         );
 
@@ -255,7 +255,7 @@ export default function SellOrderLivePage() {
     await update(
       ref(
         db,
-        `orders/${params.id}`
+        `sellOrders/${params.id}`
       ),
       {
         status:
