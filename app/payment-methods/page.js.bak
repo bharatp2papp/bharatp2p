@@ -107,12 +107,7 @@ export default function PaymentMethodsPage() {
           }));
 
         setBankCards(
-          loaded
-            .filter(
-              (item) =>
-                item.email === user
-            )
-            .reverse()
+          loaded.reverse()
         );
 
       } else {
@@ -139,12 +134,7 @@ export default function PaymentMethodsPage() {
           }));
 
         setUpiCards(
-          loaded
-            .filter(
-              (item) =>
-                item.email === user
-            )
-            .reverse()
+          loaded.reverse()
         );
 
       } else {
@@ -188,7 +178,6 @@ export default function PaymentMethodsPage() {
               `bank-methods/${editBankId}`
             ),
             {
-              email: user,
               bankName,
               accountName,
               accountNumber,
@@ -210,7 +199,6 @@ export default function PaymentMethodsPage() {
               "bank-methods"
             ),
             {
-              email: user,
               bankName,
               accountName,
               accountNumber,
@@ -272,7 +260,6 @@ export default function PaymentMethodsPage() {
               `upi-methods/${editUpiId}`
             ),
             {
-              email: user,
               upiId
             }
           );
@@ -291,7 +278,6 @@ export default function PaymentMethodsPage() {
               "upi-methods"
             ),
             {
-              email: user,
               upiId
             }
           );

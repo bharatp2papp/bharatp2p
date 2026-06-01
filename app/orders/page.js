@@ -37,7 +37,7 @@ export default function OrdersPage() {
       return;
 
     onValue(
-      ref(db, "orders"),
+      ref(db, "sellOrders"),
       (snapshot) => {
 
         if (snapshot.exists()) {
@@ -143,7 +143,7 @@ export default function OrdersPage() {
       await update(
         ref(
           db,
-          `orders/${id}`
+          `sellOrders/${id}`
         ),
         {
           status: "Paid"
@@ -158,7 +158,7 @@ export default function OrdersPage() {
       await update(
         ref(
           db,
-          `orders/${id}`
+          `sellOrders/${id}`
         ),
         {
           status:
